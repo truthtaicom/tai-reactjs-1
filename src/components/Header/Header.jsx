@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import firebase from 'firebase';
+import { ThemeContext } from '../../ThemeContext';
 
 function Header(props) {
     const [userInfo, setUserInfo] = useState({ })
+    // const [valuex, switchValuex] = useContext(ThemeContext)
+    const { value, switchTheme: switchThemeValue } = useContext(ThemeContext)
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             setUserInfo(user)
@@ -14,6 +17,11 @@ function Header(props) {
         await firebase.auth().signOut()
         window.location.href= "/"
     }
+
+    const switchTheme = () => {
+        switchThemeValue()
+    }
+
     const userEmail = userInfo && userInfo.email
   return (
     <header>
@@ -62,13 +70,16 @@ function Header(props) {
                                                 </li>
                                             </ul>
                                         </li>
+                                        <li onClick={switchTheme}><span class="badge badge-pill badge-dark">{value}</span></li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
                         <div className="col-xl-2 col-lg-6 col-md-6 col-5 col-sm-7 pl-0">
                             <div className="header-right f-right">
+                                
                                 <ul>
+                                
                                     {
                                         userEmail && <span>Xin chao {userInfo.email}</span>
                                     }
@@ -85,6 +96,7 @@ function Header(props) {
                                             props.children
                                         }
                                     </li>
+                                
                                 </ul>
                             </div>
                         </div>

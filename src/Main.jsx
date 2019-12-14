@@ -8,18 +8,19 @@ import dataJSON from './data.json'
 import Cart from "./components/Cart/Cart";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import './App.css'
 
 /*
-
-A
-  - B 
-    - C
-      - D
-        - E
-          - F
-            - G
-    - H
-M
+STORE   => createContext()
+  A
+    - B 
+      - C
+        - D
+          - E                               => useContext(STORE)
+            - F
+              - G
+      - H
+  M
 
             Flux x
 
@@ -27,6 +28,17 @@ M
 2 - Minh muon truyen xuong ( lay tu parent) hay truyen len ( parent)
 */
 
+/*
+Use case: Muon chia se gia tri cho cac component voi nhau ( bao gom doi thu 15 )
+Cach giai quyet:
+
+1 - STORE => Luu gia tri lai => createContext() de tao STORE
+2 - Su dung STORE.Provider de wrap tat ca component muon lay du lieu tu store 
+  + ( voi gia tri mac dinh  - value )
+  + export STORE ra de dung o buoc 3
+3 - De lay gia tru STORE => su dung useContext(STORE)
+
+*/
 function Main() {
   const [addedProducts, setAddedProducts ] = useState([])
   // const products = [
@@ -53,7 +65,7 @@ function Main() {
         {/* <ProductList data={dataJSON.data} onClickProduct={callbackOfParent}/>
         <Sidebar /> */}
       </Layout>
-        <Login />
+        {/* <Login /> */}
         {/* <Register /> */}
       <Footer />
     </>

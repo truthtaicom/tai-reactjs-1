@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import firebase from "firebase"
+import { ThemeContext } from '../../ThemeContext';
+
 
 export default function Login(props) {
-
+  const theme = useContext(ThemeContext)
   // const { error, loading, login } = props;
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -30,9 +32,12 @@ export default function Login(props) {
   const onRegister = () => {
     props.history.push('/register')
   }
+
+
+  const textColor = theme.value === 'white' ?  "black" : 'white'
   
   return (
-    <main>
+    <main style={{ backgroundColor: theme.value }}>
         <section className="breadcrumb-area" style={{backgroundImage: 'url("./assets/page-title.png")'}}>
           <div className="container">
             <div className="row">
@@ -53,22 +58,22 @@ export default function Login(props) {
             <div className="row">
               <div className="col-lg-8 offset-lg-2">
                 <div className="basic-login">
-                  <h3 className="text-center mb-60">Login From Here</h3>
+                  <h3 className="text-center mb-60" style={{ color: textColor }}>Login From Here</h3>
                   <p className="text-danger">{errorMsg}</p>
                   <form onSubmit={onSubmit}>
-                    <label htmlFor="name">Email Address <span>**</span></label>
+                    <label style={{ color: textColor }} htmlFor="name">Email Address <span>**</span></label>
                     <input 
                       id="name" 
                       type="text" 
                       placeholder="Enter Username or Email address..."
                       onChange={onChangeEmail}
                     />
-                    <label htmlFor="pass">Password <span>**</span></label>
+                    <label style={{ color: textColor }}  htmlFor="pass">Password <span>**</span></label>
                     <input id="pass" type="password" placeholder="Enter password..." onChange={onChangePassword} />
                     <div className="login-action mb-20 fix">
                       <span className="log-rem f-left">
                         <input id="remember" type="checkbox" />
-                        <label htmlFor="remember">Remember me!</label>
+                        <label htmlFor="remember" style={{ color: textColor }}>Remember me!</label>
                       </span>
                       <span className="forgot-login f-right">
                         <a href="#">Lost your password?</a>
