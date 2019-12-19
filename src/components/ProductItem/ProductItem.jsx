@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-function ProductItem({ onClickProduct, img_url, shop_name, name, final_price, price, promotion_percent = 0 }) {
+function ProductItem({ onClickProduct, product_id, img_url, shop_name, name, final_price, price, promotion_percent = 0 }) {
   const [state, setState] = useState(false)
   const [count, setCount] = useState(0)
   const onClickCart = () => {
@@ -20,9 +21,9 @@ function ProductItem({ onClickProduct, img_url, shop_name, name, final_price, pr
             <a title="Shoppingb Cart" onClick={onClickCart}>
               <i className="fas fa-shopping-cart" />
             </a>
-            <a href="#" title="Quick View">
+            <Link to={`/product-detail/${product_id}`} title="Quick View">
               <i className="fas fa-search" />
-            </a>
+            </Link>
           </div>
         </div>
         <div className="product-content pr-0">

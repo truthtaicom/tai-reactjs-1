@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import firebase from 'firebase';
 import { ThemeContext } from '../../ThemeContext';
+import { Link } from 'react-router-dom'
 
 function Header(props) {
     const [userInfo, setUserInfo] = useState({ })
@@ -30,7 +31,7 @@ function Header(props) {
                     <div className="row align-items-center">
                         <div className="col-xl-2 col-lg-6 col-md-6 col-7 col-sm-5 d-flex align-items-center pos-relative">
                             <div className="logo">
-                                <a href="#"><img src="./assets/logo_shop.png" alt="" /></a>
+                                <Link to="/"><img src="./assets/logo_shop.png" alt="" /></Link>
                             </div>
 
                             <div className="category-menu">
@@ -89,7 +90,7 @@ function Header(props) {
                                     {
                                         userEmail 
                                         ? <li className="login-btn"><a onClick={onLogout}><i className="fas fa-sign-out-alt"></i></a></li>
-                                        : <li className="login-btn"><a href="#"><i className="fas fa-user"></i></a></li>
+                                        : <li className="login-btn"><Link to="/login"><i className="fas fa-user"></i></Link></li>
                                     }
                                     <li className="d-shop-cart"><a href="#"><i className="fas fa-shopping-cart"></i> <span className="cart-count">{props.addedProductsLength}</span></a>
                                         {

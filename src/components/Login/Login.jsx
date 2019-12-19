@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import firebase from "firebase"
 import { ThemeContext } from '../../ThemeContext';
-
+import { Link } from 'react-router-dom'
 
 export default function Login(props) {
   const theme = useContext(ThemeContext)
