@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import firebase from "firebase"
 import { ThemeContext } from '../../ThemeContext';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 export default function Login(props) {
   const theme = useContext(ThemeContext)
@@ -9,12 +9,13 @@ export default function Login(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
+  const history = useHistory()
 
   const onSubmit  = async (e) => {
     e.preventDefault()
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password)
-      // window.location.href = "/"
+      history.push('/')
       setErrorMsg('')
     } catch(error) {
       setErrorMsg(error.message)
@@ -30,7 +31,7 @@ export default function Login(props) {
   }
 
   const onRegister = () => {
-    props.history.push('/register')
+    history.push('/register')
   }
 
 

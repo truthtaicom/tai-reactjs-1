@@ -5,10 +5,13 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import Layout from "./components/Layout/Layout";
 import dataJSON from './data.json'
 import Cart from "./components/Cart/Cart";
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css'
+import firebase from 'firebase'
 
 import Loading from './components/Loading/Loading'
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import LoginRoute from "./components/Login/LoginRoute";
 
 const Login = React.lazy(() => import("./components/Login/Login"));
 const ProductList = React.lazy(() => import("./components/ProductList/ProductList"));
@@ -75,28 +78,26 @@ function Main() {
               <Sidebar />
             </Layout>
           </Route>
-          <Route 
-            path="/(login|dang-nhap)" 
-            render={(props) => {
-              // if(props.isLogin) {
-              //   return <Login />
-              // }
-              // return <NotFound />
-              return <Login />
-            }} 
-          />
+          <LoginRoute path="/(login|dang-nhap)">
+            <Login />
+          </LoginRoute>
           <Route path="/register">
             <Register />
           </Route>
-          <Route
-            path="/product-detail/:id" 
+          {/* <Route
+            
             // render={(props) => {
             //   console.log(props.match.params.id)
             //   return <ProductDetail id={props.match.params.id}/>
             // }}
           >
+                          <ProductDetail />
+          </Route> */}
+
+          <PrivateRoute path="/product-detail/:id">
             <ProductDetail />
-          </Route>
+          </PrivateRoute>
+
           <Route path="*">
             <NotFound />
           </Route>
