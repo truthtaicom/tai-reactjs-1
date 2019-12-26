@@ -1,18 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import Main from './Main';
-import * as serviceWorker from './serviceWorker';
-import firebaseInit from './firebase'
-import ThemeContextComponent from './ThemeContext';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import Main from "./Main";
+import * as serviceWorker from "./serviceWorker";
+import firebaseInit from "./firebase";
+import ThemeContextComponent from "./ThemeContext";
+import { Provider } from "react-redux";
+import { store } from './App.store'
 
-
-firebaseInit()
+firebaseInit();
 ReactDOM.render(
   <ThemeContextComponent>
+    <Provider store={store}>
       <Main />
-  </ThemeContextComponent>, 
-document.getElementById('root'));
+    </Provider>
+  </ThemeContextComponent>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

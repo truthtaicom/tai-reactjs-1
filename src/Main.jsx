@@ -16,7 +16,7 @@ import LoginRoute from "./components/Login/LoginRoute";
 const Login = React.lazy(() => import("./components/Login/Login"));
 const ProductList = React.lazy(() => import("./components/ProductList/ProductList"));
 const NotFound = React.lazy(() => import('./components/NotFound/NotFound'))
-const Register = React.lazy(() => import("./components/Register/Register"))
+const Register = React.lazy(() => import("./components/Register/Register.Container"))
 const ProductDetail  = React.lazy(() => import("./components/ProductDetail/ProductDetail"))
 
 /*

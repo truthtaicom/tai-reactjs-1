@@ -4,20 +4,9 @@ import firebase from 'firebase'
 export default function Register(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [errorMsg, setErrorMsg] = useState('') 
   const onSubmit  = async (e) => {
-    e.preventDefault()
-    // console.log({ email, password })
-    try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password)
-      // props.history.push('/login')
-      setErrorMsg('')
-      
-    } catch(error) {
-      console.log(error)
-      // console.log(error.message, "error")
-      setErrorMsg(error.message)
-    }
+    e.preventDefault();
+    props.registerAction(email, password)
 
   }
 
@@ -59,14 +48,14 @@ export default function Register(props) {
               <div className="col-lg-8 offset-lg-2">
                 <div className="basic-login">
                   <h3 className="text-center mb-60">Signup From Here</h3>
-                  <p className="text-danger">{errorMsg}</p>
+                  <p className="text-danger">{props.error}</p>
                   <form onSubmit={onSubmit}>
                     <label htmlFor="email-id">Email Address <span>**</span></label>
                     <input id="email-id" type="text" onChange={onChangeEmail} placeholder="Enter Username or Email address..." />
                     <label htmlFor="pass">Password <span>**</span></label>
                     <input id="pass" type="password" onChange={onChangePassword} placeholder="Enter password..." />
                     <div className="mt-10" />
-                    <button className="btn theme-btn-2 w-100">Register Now</button>
+                    <button type="submit" className="btn theme-btn-2 w-100">Register Now</button>
                     <div className="or-divide"><span>or</span></div>
                     <button className="btn theme-btn w-100" onClick={onLogin}>login Now</button>
                   </form>
