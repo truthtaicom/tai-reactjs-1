@@ -1,4 +1,4 @@
-import { store } from "../../App.store"
+import firebase from 'firebase'
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
@@ -31,7 +31,14 @@ export const registerAction = (email, password) => {
     // => SUCCESS - DATA - 
     // => FAIL - ERROR
 
-    return async (dispatch) => {
-      dispatch(registerRequestAction())
+    return async(dispatch) => {
+        dispatch(registerRequestAction())
+        try {
+            const result = await firebase.auth().createUserWithEmailAndPassword(email, password)
+            dispatch(registerSuccessAction(result))
+
+        } catch (error) {
+            dispatch(registerFailAction(error))
+        }
     }
 }
