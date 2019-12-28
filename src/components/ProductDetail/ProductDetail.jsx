@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
-import dataJson from '../../data.json'
 import NotFound from "../NotFound/NotFound.jsx";
 
 export default function ProductDetail(props) {
+  const [tabActive, setTabActive] = useState("description")
   const params = useParams()
+  const { getProductDetailById} = props
+  const product = props.data
   const id = params.id
 
-  const product = dataJson.data.find(item => item.product_id === parseInt(id))
-  console.log(product, dataJson.data, id)
-  if(!product) {
+  useEffect(() => {
+    getProductDetailById(id)
+  }, [getProductDetailById, id])
+
+  if(props.error || product === null) {
     return <NotFound />
+  }
+
+  const onClickTab = (name) => {
+    setTabActive(name)
   }
 
   return (
@@ -52,10 +60,10 @@ export default function ProductDetail(props) {
                     role="tabpanel"
                   >
                     <div className="product-large-img">
-                      <img src="img/product/pro1.jpg" alt="" />
+                      <img src={`https://media3.scdn.vn/${product.images[0]}`} alt="" />
                     </div>
                   </div>
-                  <div className="tab-pane fade" id="profile" role="tabpanel">
+                  {/* <div className="tab-pane fade" id="profile" role="tabpanel">
                     <div className="product-large-img">
                       <img src="img/product/pro2.jpg" alt="" />
                     </div>
@@ -64,7 +72,7 @@ export default function ProductDetail(props) {
                     <div className="product-large-img">
                       <img src="img/product/pro3.jpg" alt="" />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="shop-thumb-tab mb-30">
@@ -123,7 +131,7 @@ export default function ProductDetail(props) {
                 </div>
                 <div className="product-variant">
                   <div className="product-desc variant-item">
-                    <p dangerouslySetInnerHTML={{__html: product.description}} />
+                    <p dangerouslySetInnerHTML={{__html: product.short_description}} />
                       
                   </div>
                   <div className="product-info-list variant-item">
@@ -139,7 +147,7 @@ export default function ProductDetail(props) {
                       </li>
                       <li>
                         <span>Stock:</span>{" "}
-                        <span className="in-stock">In Stock</span>
+                          <span className="in-stock">{product.status_text}</span>
                       </li>
                     </ul>
                   </div>
@@ -174,26 +182,26 @@ export default function ProductDetail(props) {
                 <ul className="nav review-tab" id="myTabproduct" role="tablist">
                   <li className="nav-item">
                     <a
-                      className="nav-link active"
+                      className={`nav-link ${tabActive === "description" && "active"}`}
                       id="home-tab6"
                       data-toggle="tab"
-                      href="#home6"
                       role="tab"
                       aria-controls="home"
                       aria-selected="true"
+                      onClick={() => onClickTab("description")}
                     >
                       Description{" "}
                     </a>
                   </li>
                   <li className="nav-item">
                     <a
-                      className="nav-link"
+                      className={`nav-link ${tabActive === "comments" && "active"}`}
                       id="profile-tab6"
                       data-toggle="tab"
-                      href="#profile6"
                       role="tab"
                       aria-controls="profile"
                       aria-selected="false"
+                      onClick={() => onClickTab("comments")}
                     >
                       Reviews (2)
                     </a>
@@ -201,7 +209,7 @@ export default function ProductDetail(props) {
                 </ul>
                 <div className="tab-content" id="myTabContent2">
                   <div
-                    className="tab-pane fade show active"
+                    className={`tab-pane fade show ${tabActive === "description" && "active"}`}
                     id="home6"
                     role="tabpanel"
                     aria-labelledby="home-tab6"
@@ -213,10 +221,11 @@ export default function ProductDetail(props) {
                     </div>
                   </div>
                   <div
-                    className="tab-pane fade"
+                    className={`tab-pane fade show ${tabActive === "comments" && "active"}`}
                     id="profile6"
                     role="tabpanel"
                     aria-labelledby="profile-tab6"
+                    style={{ display: 'block' }}
                   >
                     <div className="desc-text review-text">
                       <div className="product-commnets">

@@ -14,10 +14,10 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import LoginRoute from "./components/Login/LoginRoute";
 
 const Login = React.lazy(() => import("./components/Login/Login"));
-const ProductList = React.lazy(() => import("./components/ProductList/ProductList"));
+const ProductList = React.lazy(() => import("./components/ProductList/ProductList.Container"));
 const NotFound = React.lazy(() => import('./components/NotFound/NotFound'))
 const Register = React.lazy(() => import("./components/Register/Register.Container"))
-const ProductDetail  = React.lazy(() => import("./components/ProductDetail/ProductDetail"))
+const ProductDetail  = React.lazy(() => import("./components/ProductDetail/ProductDetail.Container"))
 
 /*
 STORE   => createContext()
@@ -74,7 +74,7 @@ function Main() {
         <Switch>
           <Route path="/" exact>
             <Layout>
-              <ProductList data={dataJSON.data} onClickProduct={callbackOfParent}/>
+              <ProductList onClickProduct={callbackOfParent}/>
               <Sidebar />
             </Layout>
           </Route>

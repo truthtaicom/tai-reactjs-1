@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import firebase from 'firebase'
+import { useHistory } from 'react-router-dom'
 
 export default function Register(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const history = useHistory()
   const onSubmit  = async (e) => {
     e.preventDefault();
     props.registerAction(email, password)
@@ -19,7 +20,7 @@ export default function Register(props) {
   }
 
   const onLogin = () => {
-    props.history.push('/login')
+    history.push('/login')
   }
 
   return (
